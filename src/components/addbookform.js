@@ -1,8 +1,6 @@
 /** @format */
-/** @format */
 
 import React from "react";
-import Book from "./book";
 
 export default class Bookform extends React.Component {
   constructor(props) {
@@ -14,7 +12,6 @@ export default class Bookform extends React.Component {
       isbn: "",
       books: []
     };
-    console.log(this.state);
   }
 
   updateTitle(e) {
@@ -36,7 +33,6 @@ export default class Bookform extends React.Component {
     this.setState(currentState => ({
       isbn: value
     }));
-    console.log(this.state);
   }
 
   Bookfactory(title, author, isbn) {
@@ -47,6 +43,10 @@ export default class Bookform extends React.Component {
     };
   }
 
+  sendData = data => {
+    this.props.callBack(data);
+  };
+
   addNewBook(e) {
     e.preventDefault();
     let title = this.state.title;
@@ -54,9 +54,19 @@ export default class Bookform extends React.Component {
     let isbn = this.state.isbn;
     let book = this.Bookfactory(title, author, isbn);
     this.state.books.push(book);
+    this.sendData(book);
+    this.setState(currentState => ({
+      isbn: "",
+      title: "",
+      author: ""
+    }));
   }
 
   render() {
+    console.log(this.props.show);
+    if (this.props.show) {
+      return null;
+    }
     return (
       <div className="form-section">
         <form onSubmit={this.addNewBook.bind(this)}>
@@ -64,18 +74,21 @@ export default class Bookform extends React.Component {
             type="text"
             placeholder="Title"
             value={this.state.title}
+            required
             onChange={this.updateTitle.bind(this)}
           ></input>
           <input
             type="text"
             placeholder="Author"
             value={this.state.author}
+            required
             onChange={this.updateAuthor.bind(this)}
           ></input>
           <input
             type="text"
             value={this.state.isbn}
             placeholder="ISBN"
+            required
             onChange={this.updateIsbn.bind(this)}
           ></input>
           <input type="submit" value="Add Book"></input>

@@ -30,7 +30,7 @@ export default class App extends React.Component {
 
   showModal = e => {
     this.setState({
-      show: true
+      show: e
     });
   };
 
@@ -43,11 +43,11 @@ export default class App extends React.Component {
     });
   };
 
-  removeBook = book => {
+  removeBook = index => {
     this.setState(currentState => {
-      currentState.books.splice(book, 1);
+      currentState.books.splice(index, 1);
       return {
-        book: currentState.books
+        books: currentState.books
       };
     });
   };

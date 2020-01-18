@@ -63,8 +63,8 @@ export default class Bookform extends React.Component {
   }
 
   render() {
-    console.log(this.props.show);
     if (this.props.show) {
+      console.log(this.props.show);
       return null;
     }
     return (

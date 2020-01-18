@@ -10,7 +10,8 @@ export default class Bookform extends React.Component {
       title: "",
       author: "",
       isbn: "",
-      books: []
+      books: [],
+      display: true
     };
   }
 
@@ -43,6 +44,12 @@ export default class Bookform extends React.Component {
     };
   }
 
+  hideModal = e => {
+    this.setState({
+      display: false
+    });
+  };
+
   sendData = data => {
     this.props.callBack(data);
   };
@@ -60,40 +67,41 @@ export default class Bookform extends React.Component {
       title: "",
       author: ""
     }));
+    this.hideModal();
   }
 
   render() {
-    if (this.props.show) {
-      console.log(this.props.show);
+    if (this.state.display) {
+      return (
+        <div className="form-section">
+          <form onSubmit={this.addNewBook.bind(this)}>
+            <input
+              type="text"
+              placeholder="Title"
+              value={this.state.title}
+              required
+              onChange={this.updateTitle.bind(this)}
+            ></input>
+            <input
+              type="text"
+              placeholder="Author"
+              value={this.state.author}
+              required
+              onChange={this.updateAuthor.bind(this)}
+            ></input>
+            <input
+              type="text"
+              value={this.state.isbn}
+              placeholder="ISBN"
+              required
+              onChange={this.updateIsbn.bind(this)}
+            ></input>
+            <input type="submit" value="Add Book"></input>
+          </form>
+        </div>
+      );
+    } else {
       return null;
     }
-    return (
-      <div className="form-section">
-        <form onSubmit={this.addNewBook.bind(this)}>
-          <input
-            type="text"
-            placeholder="Title"
-            value={this.state.title}
-            required
-            onChange={this.updateTitle.bind(this)}
-          ></input>
-          <input
-            type="text"
-            placeholder="Author"
-            value={this.state.author}
-            required
-            onChange={this.updateAuthor.bind(this)}
-          ></input>
-          <input
-            type="text"
-            value={this.state.isbn}
-            placeholder="ISBN"
-            required
-            onChange={this.updateIsbn.bind(this)}
-          ></input>
-          <input type="submit" value="Add Book"></input>
-        </form>
-      </div>
-    );
   }
 }

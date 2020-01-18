@@ -1,6 +1,5 @@
 /** @format */
 import React from "react";
-import Book from "./book";
 
 function Booklist(props) {
   return (
@@ -16,17 +15,16 @@ function Booklist(props) {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>History of Humankind</td>
-              <td>Goerge Best</td>
-              <td>2312022</td>
-              <td>X</td>
-            </tr>
-            {props.list.map(book => (
-              <tr>
+            {props.list.map((book, index) => (
+              <tr key={index}>
                 <td>{book.title}</td>
                 <td>{book.author}</td>
                 <td>{book.isbn}</td>
+                <td>
+                  <button onClick={() => props.removeBook(book)}>
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -24,22 +24,38 @@ export default class App extends React.Component {
           isbn: "9382882"
         }
       ],
-      show: false
+      show: false,
+      read: false
     };
   }
 
-  showModal = e => {
-    this.setState({
-      show: e
-    });
-  };
-
-  callBackFunction = data => {
+  callBackFunction = (data, modal) => {
     this.setState(currentState => {
       currentState.books.push(data);
       return {
-        books: currentState.books
+        books: currentState.books,
+        show: modal
       };
+    });
+  };
+
+  callBackFunction2 = modal => {
+    this.setState(currentState => {
+      return {
+        show: modal
+      };
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      show: false
+    });
+  };
+
+  showModal = () => {
+    this.setState({
+      show: true
     });
   };
 
@@ -57,8 +73,17 @@ export default class App extends React.Component {
       <div>
         <Header />
         <Booklist list={this.state.books} removeBook={this.removeBook} />
-        <Bookform callBack={this.callBackFunction} show={this.showModal} />
-        <Showform show={this.showModal} />
+        <Bookform
+          callBack={this.callBackFunction}
+          modal={this.state.show}
+          closeModal={this.closeModal.bind(this)}
+        />
+        <Showform
+          show={this.state.show}
+          callBack={this.callBackFunction2}
+          showModal={this.showModal}
+          closeModal={this.closeModal}
+        />
       </div>
     );
   }

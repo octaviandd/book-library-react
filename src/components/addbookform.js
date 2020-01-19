@@ -6,12 +6,13 @@ export default class Bookform extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(this.props);
+
     this.state = {
       title: "",
       author: "",
       isbn: "",
-      books: [],
-      display: true
+      books: []
     };
   }
 
@@ -44,12 +45,6 @@ export default class Bookform extends React.Component {
     };
   }
 
-  hideModal = e => {
-    this.setState({
-      display: false
-    });
-  };
-
   sendData = data => {
     this.props.callBack(data);
   };
@@ -67,11 +62,10 @@ export default class Bookform extends React.Component {
       title: "",
       author: ""
     }));
-    this.hideModal();
   }
 
   render() {
-    if (this.state.display) {
+    if (this.props.modal) {
       return (
         <div className="form-section">
           <form onSubmit={this.addNewBook.bind(this)}>
@@ -96,7 +90,11 @@ export default class Bookform extends React.Component {
               required
               onChange={this.updateIsbn.bind(this)}
             ></input>
-            <input type="submit" value="Add Book"></input>
+            <input
+              type="submit"
+              value="Add Book"
+              onClick={() => this.props.closeModal}
+            ></input>
           </form>
         </div>
       );

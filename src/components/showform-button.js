@@ -11,26 +11,17 @@ export default class Showform extends React.Component {
     this.props.callBack(modal);
   };
 
-  openCallBack = () => {
+  callBack = () => {
     this.sendData();
-    this.props.showModal();
-  };
-
-  closeCallBack = () => {
-    this.sendData();
-    this.props.closeModal();
+    this.props.handleModal();
   };
 
   render() {
     return (
       <div className="show-button">
-        <button onClick={this.openCallBack}>
+        <button onClick={this.callBack}>
           <i className="far fa-plus-square"></i>
         </button>
-        <button style={{ marginLeft: "20px" }} onClick={this.closeCallBack}>
-          X
-        </button>
-        <div></div>
       </div>
     );
   }

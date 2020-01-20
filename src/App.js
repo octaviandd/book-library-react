@@ -6,6 +6,7 @@ import Header from "./components/header";
 import Bookform from "./components/addbookform";
 import Booklist from "./components/booklist";
 import Showform from "./components/showform-button";
+// import Readbooks from "./components/read-books";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -24,11 +25,11 @@ export default class App extends React.Component {
           isbn: "9382882"
         }
       ],
-      show: false,
-      read: false
+      show: false
     };
   }
 
+  //Bookform callback
   callBackFunction = (data, modal) => {
     this.setState(currentState => {
       currentState.books.push(data);
@@ -39,6 +40,7 @@ export default class App extends React.Component {
     });
   };
 
+  //Showform callback
   callBackFunction2 = modal => {
     this.setState(currentState => {
       return {
@@ -47,18 +49,24 @@ export default class App extends React.Component {
     });
   };
 
-  closeModal = () => {
+  //Booklist check
+
+  checkBox = event => {
+    if (event.target.checked) {
+      event.target.closest("tr").style.backgroundColor = "#218838";
+    } else {
+      event.target.closest("tr").style.backgroundColor = "";
+    }
+  };
+
+  //Showform and bookform callback
+  handleModal = () => {
     this.setState({
-      show: false
+      show: !this.state.show
     });
   };
 
-  showModal = () => {
-    this.setState({
-      show: true
-    });
-  };
-
+  //Booklist method
   removeBook = index => {
     this.setState(currentState => {
       currentState.books.splice(index, 1);
@@ -72,17 +80,21 @@ export default class App extends React.Component {
     return (
       <div>
         <Header />
-        <Booklist list={this.state.books} removeBook={this.removeBook} />
+        <Booklist
+          list={this.state.books}
+          removeBook={this.removeBook}
+          check={this.checkBox}
+        />
         <Bookform
           callBack={this.callBackFunction}
           modal={this.state.show}
-          closeModal={this.closeModal.bind(this)}
+          closeModal={this.handleModal.bind(this)}
+          read={this.state.read}
         />
         <Showform
           show={this.state.show}
           callBack={this.callBackFunction2}
-          showModal={this.showModal}
-          closeModal={this.closeModal}
+          handleModal={this.handleModal}
         />
       </div>
     );

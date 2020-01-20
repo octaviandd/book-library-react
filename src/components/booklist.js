@@ -24,7 +24,7 @@ function Booklist(props) {
                 <td>{book.author}</td>
                 <td>{book.isbn}</td>
                 <td>
-                  <input type="checkbox"></input>
+                  <input type="checkbox" onClick={e => props.check(e)}></input>
                 </td>
                 <td>
                   <button onClick={() => props.removeBook(index)}>

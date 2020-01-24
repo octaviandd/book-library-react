@@ -13,7 +13,11 @@ function Booklist(props) {
               <th>Author</th>
               <th>ISBN</th>
               <th></th>
-              <th></th>
+              <th>
+                <button onClick={() => props.clearAll()}>
+                  <i className="far fa-trash-alt"></i>
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>

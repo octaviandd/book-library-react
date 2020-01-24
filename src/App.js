@@ -76,6 +76,15 @@ export default class App extends React.Component {
     });
   };
 
+  clearAllBooks = () => {
+    this.setState(currentState => {
+      currentState.books = [];
+      return {
+        books: currentState.books
+      };
+    });
+  };
+
   render() {
     return (
       <div>
@@ -84,6 +93,7 @@ export default class App extends React.Component {
           list={this.state.books}
           removeBook={this.removeBook}
           check={this.checkBox}
+          clearAll={this.clearAllBooks.bind(this)}
         />
         <Bookform
           callBack={this.callBackFunction}
